@@ -1,9 +1,9 @@
 'use strict';
 
-const fs = require('fs');
+const fs = require('fs'); // file system
 const path = require('path');
-const webpack = require('webpack');
-const resolve = require('resolve');
+const webpack = require('webpack'); // webpack本体
+const resolve = require('resolve'); // 导入该方法
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CaseSensitivePathsPlugin = require('case-sensitive-paths-webpack-plugin');
 const InlineChunkHtmlPlugin = require('react-dev-utils/InlineChunkHtmlPlugin');
@@ -30,6 +30,11 @@ const createEnvironmentHash = require('./webpack/persistentCache/createEnvironme
 
 // Source maps are resource heavy and can cause out of memory issue for large source files.
 const shouldUseSourceMap = process.env.GENERATE_SOURCEMAP !== 'false';
+
+/**
+ *  require.resolve => 从 node_modules 里面查询模块
+ *  path.resolve => 从 当前 目录里面开始查询该模块
+ */
 
 const reactRefreshRuntimeEntry = require.resolve('react-refresh/runtime');
 const reactRefreshWebpackPluginRuntimeEntry = require.resolve(
@@ -89,6 +94,7 @@ const hasJsxRuntime = (() => {
 // It is focused on developer experience, fast rebuilds, and a minimal bundle.
 module.exports = function (webpackEnv) {
   const isEnvDevelopment = webpackEnv === 'development';
+  console.log('webpackEnv', webpackEnv)
   const isEnvProduction = webpackEnv === 'production';
 
   // Variable used for enabling profiling in Production
@@ -419,7 +425,7 @@ module.exports = function (webpackEnv) {
                     },
                   ],
                 ],
-                
+
                 plugins: [
                   isEnvDevelopment &&
                     shouldUseReactRefresh &&
@@ -453,7 +459,7 @@ module.exports = function (webpackEnv) {
                 cacheDirectory: true,
                 // See #6846 for context on why cacheCompression is disabled
                 cacheCompression: false,
-                
+
                 // Babel sourcemaps are needed for debugging into node_modules
                 // code.  Without the options below, debuggers like VSCode
                 // show incorrect code and set breakpoints on the wrong lines.
